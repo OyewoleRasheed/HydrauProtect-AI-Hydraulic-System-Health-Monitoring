@@ -1,0 +1,935 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HydrauProtect AI</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: #f8f8f6;
+      color: #1a1a1a;
+      min-height: 100vh;
+    }
+
+    nav {
+      background: #fff;
+      border-bottom: 1px solid #e8e8e4;
+      padding: 0 2rem;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      font-size: 16px;
+      font-weight: 600;
+      color: #1a1a1a;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .logo-dot {
+      width: 8px;
+      height: 8px;
+      background: #e85d26;
+      border-radius: 50%;
+    }
+
+    .nav-tag {
+      font-size: 12px;
+      color: #888;
+      background: #f0f0ec;
+      padding: 4px 10px;
+      border-radius: 20px;
+    }
+
+    .hero {
+      max-width: 760px;
+      margin: 80px auto 0;
+      padding: 0 2rem;
+      text-align: center;
+    }
+
+    .hero-badge {
+      display: inline-block;
+      font-size: 12px;
+      color: #e85d26;
+      background: #fdf0eb;
+      border: 1px solid #f5c9b3;
+      padding: 4px 14px;
+      border-radius: 20px;
+      margin-bottom: 24px;
+      font-weight: 500;
+    }
+
+    h1 {
+      font-size: 40px;
+      font-weight: 600;
+      line-height: 1.2;
+      color: #1a1a1a;
+      margin-bottom: 16px;
+      letter-spacing: -0.5px;
+    }
+
+    h1 span {
+      color: #e85d26;
+    }
+
+    .hero-sub {
+      font-size: 17px;
+      color: #666;
+      line-height: 1.6;
+      max-width: 560px;
+      margin: 0 auto 48px;
+    }
+
+    .stats {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      margin-bottom: 64px;
+    }
+
+    .stat {
+      text-align: center;
+    }
+
+    .stat-number {
+      font-size: 24px;
+      font-weight: 600;
+      color: #1a1a1a;
+    }
+
+    .stat-label {
+      font-size: 12px;
+      color: #888;
+      margin-top: 2px;
+    }
+
+    .upload-section {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 0 2rem 80px;
+    }
+
+    .step-row {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+
+    .step {
+      flex: 1;
+      background: #fff;
+      border: 1px solid #e8e8e4;
+      border-radius: 12px;
+      padding: 16px;
+      text-align: center;
+    }
+
+    .step-num {
+      width: 28px;
+      height: 28px;
+      background: #f0f0ec;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 600;
+      margin: 0 auto 8px;
+      color: #555;
+    }
+
+    .step-title {
+      font-size: 13px;
+      font-weight: 500;
+      color: #1a1a1a;
+      margin-bottom: 4px;
+    }
+
+    .step-desc {
+      font-size: 12px;
+      color: #888;
+      line-height: 1.4;
+    }
+
+    .upload-card {
+      background: #fff;
+      border: 1px solid #e8e8e4;
+      border-radius: 16px;
+      padding: 32px;
+      margin-bottom: 16px;
+    }
+
+    .drop-zone {
+      border: 2px dashed #d8d8d4;
+      border-radius: 12px;
+      padding: 40px 24px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.2s;
+      margin-bottom: 20px;
+    }
+
+    .drop-zone:hover,
+    .drop-zone.dragover {
+      border-color: #e85d26;
+      background: #fdf8f6;
+    }
+
+    .drop-icon {
+      width: 40px;
+      height: 40px;
+      background: #f0f0ec;
+      border-radius: 10px;
+      margin: 0 auto 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .drop-icon svg {
+      width: 20px;
+      height: 20px;
+      stroke: #888;
+      fill: none;
+      stroke-width: 1.5;
+    }
+
+    .drop-title {
+      font-size: 14px;
+      font-weight: 500;
+      color: #1a1a1a;
+      margin-bottom: 4px;
+    }
+
+    .drop-sub {
+      font-size: 12px;
+      color: #888;
+    }
+
+    .drop-sub span {
+      color: #e85d26;
+      cursor: pointer;
+      text-decoration: underline;
+    }
+
+    #file-input {
+      display: none;
+    }
+
+    .file-selected {
+      display: none;
+      align-items: center;
+      gap: 10px;
+      background: #f8f8f6;
+      border: 1px solid #e8e8e4;
+      border-radius: 8px;
+      padding: 10px 14px;
+      margin-bottom: 16px;
+    }
+
+    .file-selected.visible {
+      display: flex;
+    }
+
+    .file-icon {
+      width: 32px;
+      height: 32px;
+      background: #e85d26;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .file-icon svg {
+      width: 16px;
+      height: 16px;
+      stroke: #fff;
+      fill: none;
+      stroke-width: 1.5;
+    }
+
+    .file-name {
+      font-size: 13px;
+      font-weight: 500;
+      color: #1a1a1a;
+      flex: 1;
+    }
+
+    .file-size {
+      font-size: 12px;
+      color: #888;
+    }
+
+    .btn-remove {
+      background: none;
+      border: none;
+      color: #888;
+      cursor: pointer;
+      font-size: 18px;
+      line-height: 1;
+      padding: 0 4px;
+    }
+
+    .btn-analyse {
+      width: 100%;
+      background: #1a1a1a;
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      padding: 14px;
+      font-size: 15px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .btn-analyse:hover:not(:disabled) {
+      background: #333;
+    }
+
+    .btn-analyse:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+
+    .btn-template {
+      width: 100%;
+      background: transparent;
+      color: #666;
+      border: 1px solid #e8e8e4;
+      border-radius: 10px;
+      padding: 12px;
+      font-size: 14px;
+      cursor: pointer;
+      transition: all 0.2s;
+      margin-top: 10px;
+    }
+
+    .btn-template:hover {
+      background: #f8f8f6;
+      color: #1a1a1a;
+    }
+
+    .loading {
+      display: none;
+      text-align: center;
+      padding: 32px;
+    }
+
+    .loading.visible {
+      display: block;
+    }
+
+    .spinner {
+      width: 36px;
+      height: 36px;
+      border: 3px solid #e8e8e4;
+      border-top-color: #e85d26;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      margin: 0 auto 16px;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    .loading-text {
+      font-size: 14px;
+      color: #666;
+    }
+
+    .loading-sub {
+      font-size: 12px;
+      color: #aaa;
+      margin-top: 4px;
+    }
+
+    .result-card {
+      display: none;
+      background: #fff;
+      border: 1px solid #e8e8e4;
+      border-radius: 16px;
+      padding: 24px;
+      margin-bottom: 16px;
+    }
+
+    .result-card.visible {
+      display: block;
+    }
+
+    .result-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .result-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .result-icon.danger { background: #fdf0eb; }
+    .result-icon.success { background: #edf7f0; }
+
+    .result-icon svg {
+      width: 20px;
+      height: 20px;
+      stroke-width: 1.5;
+      fill: none;
+    }
+
+    .result-icon.danger svg { stroke: #e85d26; }
+    .result-icon.success svg { stroke: #2ea85a; }
+
+    .result-title {
+      font-size: 15px;
+      font-weight: 600;
+      color: #1a1a1a;
+    }
+
+    .result-sub {
+      font-size: 13px;
+      color: #888;
+      margin-top: 2px;
+    }
+
+    .summary-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .summary-item {
+      background: #f8f8f6;
+      border-radius: 10px;
+      padding: 14px;
+      text-align: center;
+    }
+
+    .summary-value {
+      font-size: 22px;
+      font-weight: 600;
+      color: #1a1a1a;
+    }
+
+    .summary-value.danger { color: #e85d26; }
+    .summary-value.success { color: #2ea85a; }
+
+    .summary-label {
+      font-size: 11px;
+      color: #888;
+      margin-top: 2px;
+    }
+
+    .btn-download {
+      width: 100%;
+      background: #e85d26;
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      padding: 14px;
+      font-size: 15px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .btn-download:hover {
+      background: #d04f1e;
+    }
+
+    .btn-reset {
+      width: 100%;
+      background: transparent;
+      color: #888;
+      border: none;
+      padding: 10px;
+      font-size: 13px;
+      cursor: pointer;
+      margin-top: 8px;
+    }
+
+    .btn-reset:hover { color: #1a1a1a; }
+
+    .error-box {
+      display: none;
+      background: #fdf0eb;
+      border: 1px solid #f5c9b3;
+      border-radius: 10px;
+      padding: 14px 16px;
+      font-size: 13px;
+      color: #c0391b;
+      margin-bottom: 16px;
+    }
+
+    .error-box.visible { display: block; }
+
+    .how-it-works {
+      max-width: 760px;
+      margin: 0 auto 80px;
+      padding: 0 2rem;
+    }
+
+    .section-label {
+      font-size: 12px;
+      font-weight: 600;
+      color: #888;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 24px;
+      text-align: center;
+    }
+
+    .features {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .feature {
+      background: #fff;
+      border: 1px solid #e8e8e4;
+      border-radius: 12px;
+      padding: 20px;
+    }
+
+    .feature-icon {
+      width: 36px;
+      height: 36px;
+      background: #f0f0ec;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 12px;
+    }
+
+    .feature-icon svg {
+      width: 18px;
+      height: 18px;
+      stroke: #555;
+      fill: none;
+      stroke-width: 1.5;
+    }
+
+    .feature-title {
+      font-size: 13px;
+      font-weight: 600;
+      color: #1a1a1a;
+      margin-bottom: 6px;
+    }
+
+    .feature-desc {
+      font-size: 12px;
+      color: #888;
+      line-height: 1.5;
+    }
+
+    footer {
+      border-top: 1px solid #e8e8e4;
+      padding: 24px 2rem;
+      text-align: center;
+      font-size: 12px;
+      color: #aaa;
+    }
+
+    @media (max-width: 600px) {
+      h1 { font-size: 28px; }
+      .features { grid-template-columns: 1fr; }
+      .stats { gap: 24px; }
+      .summary-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">
+    <div class="logo-dot"></div>
+    HydrauProtect AI
+  </div>
+  <span class="nav-tag">Oil & Gas Maintenance Decision Support</span>
+</nav>
+
+<div class="hero">
+  <div class="hero-badge">Powered by Machine Learning + Explainable AI</div>
+  <h1>Detect hydraulic faults.<br><span>Before they cost you.</span></h1>
+  <p class="hero-sub">
+    Upload your SCADA sensor export and get a plain English maintenance 
+    report with fault diagnosis, sensor evidence, and regulatory references 
+    — in seconds.
+  </p>
+
+  <div class="stats">
+    <div class="stat">
+      <div class="stat-number">99.6%</div>
+      <div class="stat-label">Model accuracy</div>
+    </div>
+    <div class="stat">
+      <div class="stat-number">4</div>
+      <div class="stat-label">Components assessed</div>
+    </div>
+    <div class="stat">
+      <div class="stat-number">3</div>
+      <div class="stat-label">Regulatory standards</div>
+    </div>
+  </div>
+</div>
+
+<div class="upload-section">
+  <div class="step-row">
+    <div class="step">
+      <div class="step-num">1</div>
+      <div class="step-title">Download template</div>
+      <div class="step-desc">Get the CSV format your SCADA export should match</div>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <div class="step-title">Upload your data</div>
+      <div class="step-desc">Drop your sensor summary CSV into the analyser</div>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <div class="step-title">Download report</div>
+      <div class="step-desc">Get a PDF maintenance finding ready for your superintendent</div>
+    </div>
+  </div>
+
+  <div class="upload-card" id="upload-card">
+    <div class="drop-zone" id="drop-zone">
+      <div class="drop-icon">
+        <svg viewBox="0 0 24 24">
+          <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M17 8l-5-5-5 5M12 3v12"/>
+        </svg>
+      </div>
+      <div class="drop-title">Drop your CSV file here</div>
+      <div class="drop-sub">or <span id="browse-link">browse to upload</span></div>
+      <input type="file" id="file-input" accept=".csv">
+    </div>
+
+    <div class="file-selected" id="file-selected">
+      <div class="file-icon">
+        <svg viewBox="0 0 24 24">
+          <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/>
+          <polyline points="14 2 14 8 20 8"/>
+        </svg>
+      </div>
+      <div class="file-name" id="file-name">filename.csv</div>
+      <div class="file-size" id="file-size">0 KB</div>
+      <button class="btn-remove" id="btn-remove">×</button>
+    </div>
+
+    <div class="error-box" id="error-box"></div>
+
+    <button class="btn-analyse" id="btn-analyse" disabled>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" 
+           stroke="currentColor" stroke-width="2">
+        <circle cx="11" cy="11" r="8"/>
+        <path d="M21 21l-4.35-4.35"/>
+      </svg>
+      Analyse system health
+    </button>
+
+    <button class="btn-template" id="btn-template">
+      Download CSV template
+    </button>
+  </div>
+
+  <div class="loading" id="loading">
+    <div class="spinner"></div>
+    <div class="loading-text">Analysing hydraulic system data</div>
+    <div class="loading-sub">Running fault detection and generating report...</div>
+  </div>
+
+  <div class="result-card" id="result-card">
+    <div class="result-header">
+      <div class="result-icon" id="result-icon">
+        <svg viewBox="0 0 24 24">
+          <path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/>
+          <line x1="12" y1="9" x2="12" y2="13"/>
+          <line x1="12" y1="17" x2="12.01" y2="17"/>
+        </svg>
+      </div>
+      <div>
+        <div class="result-title" id="result-title">Analysis complete</div>
+        <div class="result-sub" id="result-sub">Your maintenance report is ready</div>
+      </div>
+    </div>
+
+    <div class="summary-grid">
+      <div class="summary-item">
+        <div class="summary-value" id="total-cycles">-</div>
+        <div class="summary-label">Cycles analysed</div>
+      </div>
+      <div class="summary-item">
+        <div class="summary-value danger" id="flagged-cycles">-</div>
+        <div class="summary-label">Require attention</div>
+      </div>
+      <div class="summary-item">
+        <div class="summary-value success" id="healthy-cycles">-</div>
+        <div class="summary-label">Healthy cycles</div>
+      </div>
+    </div>
+
+    <button class="btn-download" id="btn-download">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
+           stroke="currentColor" stroke-width="2">
+        <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/>
+      </svg>
+      Download maintenance report
+    </button>
+
+    <button class="btn-reset" id="btn-reset">Analyse another file</button>
+  </div>
+</div>
+
+<div class="how-it-works">
+  <div class="section-label">How it works</div>
+  <div class="features">
+    <div class="feature">
+      <div class="feature-icon">
+        <svg viewBox="0 0 24 24">
+          <path d="M9 3H5a2 2 0 00-2 2v4m6-6h10a2 2 0 012 2v4M9 3v18m0 0h10a2 2 0 002-2v-4M9 21H5a2 2 0 01-2-2v-4m0 0h18"/>
+        </svg>
+      </div>
+      <div class="feature-title">Multi-component diagnosis</div>
+      <div class="feature-desc">Simultaneously assesses pump leakage and accumulator condition across every cycle in your upload.</div>
+    </div>
+    <div class="feature">
+      <div class="feature-icon">
+        <svg viewBox="0 0 24 24">
+          <circle cx="12" cy="12" r="10"/>
+          <path d="M12 8v4M12 16h.01"/>
+        </svg>
+      </div>
+      <div class="feature-title">Explainable findings</div>
+      <div class="feature-desc">Every diagnosis shows which sensors drove the finding and what they indicate physically — no black box.</div>
+    </div>
+    <div class="feature">
+      <div class="feature-icon">
+        <svg viewBox="0 0 24 24">
+          <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/>
+          <path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/>
+        </svg>
+      </div>
+      <div class="feature-title">Regulatory-backed reports</div>
+      <div class="feature-desc">Every report references ISO 4413, API 686, and ISO 18435 — ready for your maintenance superintendent.</div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  HydrauProtect AI — Hydraulic System Maintenance Decision Support &nbsp;|&nbsp; 
+  Built for Oil & Gas Operations
+</footer>
+
+<script>
+  const dropZone = document.getElementById('drop-zone');
+  const fileInput = document.getElementById('file-input');
+  const browseLink = document.getElementById('browse-link');
+  const fileSelected = document.getElementById('file-selected');
+  const fileName = document.getElementById('file-name');
+  const fileSize = document.getElementById('file-size');
+  const btnRemove = document.getElementById('btn-remove');
+  const btnAnalyse = document.getElementById('btn-analyse');
+  const btnTemplate = document.getElementById('btn-template');
+  const btnDownload = document.getElementById('btn-download');
+  const btnReset = document.getElementById('btn-reset');
+  const uploadCard = document.getElementById('upload-card');
+  const loading = document.getElementById('loading');
+  const resultCard = document.getElementById('result-card');
+  const errorBox = document.getElementById('error-box');
+  const resultIcon = document.getElementById('result-icon');
+  const resultTitle = document.getElementById('result-title');
+  const resultSub = document.getElementById('result-sub');
+
+  const API_BASE = 'http://127.0.0.1:5000';
+  let selectedFile = null;
+  let reportBlob = null;
+
+  browseLink.addEventListener('click', () => fileInput.click());
+  dropZone.addEventListener('click', () => fileInput.click());
+
+  dropZone.addEventListener('dragover', (e) => {
+    e.preventDefault();
+    dropZone.classList.add('dragover');
+  });
+
+  dropZone.addEventListener('dragleave', () => {
+    dropZone.classList.remove('dragover');
+  });
+
+  dropZone.addEventListener('drop', (e) => {
+    e.preventDefault();
+    dropZone.classList.remove('dragover');
+    const file = e.dataTransfer.files[0];
+    if (file) handleFileSelect(file);
+  });
+
+  fileInput.addEventListener('change', () => {
+    if (fileInput.files[0]) handleFileSelect(fileInput.files[0]);
+  });
+
+  function handleFileSelect(file) {
+    if (!file.name.endsWith('.csv')) {
+      showError('Please upload a CSV file.');
+      return;
+    }
+    selectedFile = file;
+    fileName.textContent = file.name;
+    fileSize.textContent = formatSize(file.size);
+    fileSelected.classList.add('visible');
+    dropZone.style.display = 'none';
+    btnAnalyse.disabled = false;
+    hideError();
+  }
+
+  btnRemove.addEventListener('click', () => {
+    selectedFile = null;
+    fileInput.value = '';
+    fileSelected.classList.remove('visible');
+    dropZone.style.display = 'block';
+    btnAnalyse.disabled = true;
+  });
+
+  btnAnalyse.addEventListener('click', async () => {
+    if (!selectedFile) return;
+
+    uploadCard.style.display = 'none';
+    loading.classList.add('visible');
+    resultCard.classList.remove('visible');
+    hideError();
+
+    try {
+      const formData = new FormData();
+      formData.append('file', selectedFile);
+
+      const analyseRes = await fetch(`${API_BASE}/analyse`, {
+        method: 'POST',
+        body: formData
+      });
+
+      if (!analyseRes.ok) {
+        const err = await analyseRes.json();
+        throw new Error(err.error || 'Analysis failed');
+      }
+
+      const data = await analyseRes.json();
+
+      const reportFormData = new FormData();
+      reportFormData.append('file', selectedFile);
+
+      const reportRes = await fetch(`${API_BASE}/report`, {
+        method: 'POST',
+        body: reportFormData
+      });
+
+      if (!reportRes.ok) throw new Error('Report generation failed');
+
+      reportBlob = await reportRes.blob();
+
+      loading.classList.remove('visible');
+      showResult(data.summary);
+
+    } catch (err) {
+      loading.classList.remove('visible');
+      uploadCard.style.display = 'block';
+      showError(err.message || 'Something went wrong. Please try again.');
+    }
+  });
+
+  function showResult(summary) {
+    document.getElementById('total-cycles').textContent = summary.total_cycles;
+    document.getElementById('flagged-cycles').textContent = summary.flagged_cycles;
+    document.getElementById('healthy-cycles').textContent = summary.healthy_cycles;
+
+    if (summary.action_required) {
+      resultIcon.className = 'result-icon danger';
+      resultTitle.textContent = 'Action required';
+      resultSub.textContent = `${summary.flagged_cycles} cycle(s) need attention`;
+    } else {
+      resultIcon.className = 'result-icon success';
+      resultTitle.textContent = 'System healthy';
+      resultSub.textContent = 'All cycles within normal parameters';
+    }
+
+    resultCard.classList.add('visible');
+  }
+
+  btnDownload.addEventListener('click', () => {
+    if (!reportBlob) return;
+    const url = URL.createObjectURL(reportBlob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'hydrauprotect_maintenance_report.pdf';
+    a.click();
+    URL.revokeObjectURL(url);
+  });
+
+  btnReset.addEventListener('click', () => {
+    selectedFile = null;
+    reportBlob = null;
+    fileInput.value = '';
+    fileSelected.classList.remove('visible');
+    dropZone.style.display = 'block';
+    btnAnalyse.disabled = true;
+    resultCard.classList.remove('visible');
+    uploadCard.style.display = 'block';
+    hideError();
+  });
+
+  btnTemplate.addEventListener('click', async () => {
+    const res = await fetch(`${API_BASE}/template`);
+    const blob = await res.blob();
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'hydrauprotect_template.csv';
+    a.click();
+    URL.revokeObjectURL(url);
+  });
+
+  function showError(msg) {
+    errorBox.textContent = msg;
+    errorBox.classList.add('visible');
+  }
+
+  function hideError() {
+    errorBox.classList.remove('visible');
+  }
+
+  function formatSize(bytes) {
+    if (bytes < 1024) return bytes + ' B';
+    if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB';
+    return (bytes / (1024 * 1024)).toFixed(1) + ' MB';
+  }
+</script>
+
+</body>
+</html>

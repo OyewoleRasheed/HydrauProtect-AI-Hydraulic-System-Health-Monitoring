@@ -41,7 +41,7 @@ def extract_features_from_csv(filepath: str) -> pd.DataFrame:
     
     return df[required_features]
 
-def generate_csv_template() -> pd.DataFrame:
+def generate_csv_template() -> pd.DataFrame:    
     """
     Generates an empty CSV template the engineer fills in.
     One row per hydraulic cycle.

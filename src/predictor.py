@@ -19,6 +19,7 @@ ACCUMULATOR_LABELS = {
     130: 'Optimal pressure'
 }
 
+
 def load_models():
     pump_model = joblib.load(os.path.join(MODELS_DIR, 'pump_model.pkl'))
     accum_model = joblib.load(os.path.join(MODELS_DIR, 'accumulator_model.pkl'))

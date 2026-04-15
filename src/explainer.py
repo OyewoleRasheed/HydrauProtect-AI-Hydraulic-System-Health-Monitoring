@@ -76,10 +76,6 @@ def explain_prediction(features_df: pd.DataFrame,
         # XGBoost/newer SHAP returns 3D array (samples, features, classes)
         shap_for_class = shap_values[0, :, predicted_class_idx]
         
-    # explainer = shap.TreeExplainer(model)
-    # shap_values = explainer.shap_values(X)
-    
-    # shap_for_class = shap_values[predicted_class_idx][0]
     
     top_indices = np.argsort(np.abs(shap_for_class))[-5:][::-1]
     

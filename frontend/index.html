@@ -4,189 +4,234 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>HydrauProtect AI</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
   <style>
+    :root {
+      --orange: #e85d26;
+      --orange-light: #fdf0eb;
+      --orange-border: #f5c9b3;
+      --orange-dark: #c94e1c;
+      --black: #111110;
+      --grey-1: #1c1c1a;
+      --grey-2: #4a4a46;
+      --grey-3: #888884;
+      --grey-4: #c8c8c2;
+      --grey-5: #e8e8e2;
+      --grey-6: #f4f4f0;
+      --white: #fafaf8;
+      --green: #2a9d5c;
+      --green-light: #edf7f2;
+      --red: #c0391b;
+      --red-light: #fdf0eb;
+    }
+
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
     body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-      background: #f8f8f6;
-      color: #1a1a1a;
+      font-family: 'DM Sans', sans-serif;
+      background: var(--white);
+      color: var(--black);
       min-height: 100vh;
+      font-size: 15px;
     }
 
+    /* ── Nav ── */
     nav {
-      background: #fff;
-      border-bottom: 1px solid #e8e8e4;
-      padding: 0 2rem;
-      height: 60px;
+      background: var(--white);
+      border-bottom: 1px solid var(--grey-5);
+      padding: 0 2.5rem;
+      height: 58px;
       display: flex;
       align-items: center;
       justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
     }
 
     .logo {
-      font-size: 16px;
-      font-weight: 600;
-      color: #1a1a1a;
+      font-family: 'DM Serif Display', serif;
+      font-size: 17px;
+      color: var(--black);
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 9px;
+      letter-spacing: -0.2px;
     }
 
-    .logo-dot {
-      width: 8px;
-      height: 8px;
-      background: #e85d26;
+    .logo-pip {
+      width: 7px; height: 7px;
+      background: var(--orange);
       border-radius: 50%;
+      animation: pulse 2.5s ease-in-out infinite;
     }
 
-    .nav-tag {
-      font-size: 12px;
-      color: #888;
-      background: #f0f0ec;
-      padding: 4px 10px;
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.6; transform: scale(0.85); }
+    }
+
+    .nav-pill {
+      font-size: 11.5px;
+      color: var(--grey-3);
+      background: var(--grey-6);
+      padding: 4px 12px;
       border-radius: 20px;
+      font-weight: 500;
+      letter-spacing: 0.02em;
     }
 
+    /* ── Hero ── */
     .hero {
-      max-width: 760px;
-      margin: 80px auto 0;
+      max-width: 720px;
+      margin: 72px auto 0;
       padding: 0 2rem;
       text-align: center;
     }
 
     .hero-badge {
-      display: inline-block;
-      font-size: 12px;
-      color: #e85d26;
-      background: #fdf0eb;
-      border: 1px solid #f5c9b3;
-      padding: 4px 14px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11.5px;
+      color: var(--orange);
+      background: var(--orange-light);
+      border: 1px solid var(--orange-border);
+      padding: 5px 14px;
       border-radius: 20px;
-      margin-bottom: 24px;
+      margin-bottom: 28px;
       font-weight: 500;
     }
 
+    .badge-dot {
+      width: 5px; height: 5px;
+      background: var(--orange);
+      border-radius: 50%;
+    }
+
     h1 {
-      font-size: 40px;
-      font-weight: 600;
-      line-height: 1.2;
-      color: #1a1a1a;
-      margin-bottom: 16px;
+      font-family: 'DM Serif Display', serif;
+      font-size: 46px;
+      font-weight: 400;
+      line-height: 1.15;
+      color: var(--black);
+      margin-bottom: 18px;
       letter-spacing: -0.5px;
     }
 
-    h1 span {
-      color: #e85d26;
+    h1 em {
+      font-style: italic;
+      color: var(--orange);
     }
 
     .hero-sub {
-      font-size: 17px;
-      color: #666;
-      line-height: 1.6;
-      max-width: 560px;
-      margin: 0 auto 48px;
+      font-size: 16px;
+      color: var(--grey-2);
+      line-height: 1.65;
+      max-width: 520px;
+      margin: 0 auto 44px;
+      font-weight: 300;
     }
 
     .stats {
       display: flex;
       justify-content: center;
-      gap: 40px;
-      margin-bottom: 64px;
+      gap: 0;
+      margin-bottom: 60px;
+      border: 1px solid var(--grey-5);
+      border-radius: 14px;
+      overflow: hidden;
+      background: var(--white);
     }
 
     .stat {
+      flex: 1;
+      padding: 18px 0;
       text-align: center;
+      border-right: 1px solid var(--grey-5);
     }
+    .stat:last-child { border-right: none; }
 
     .stat-number {
-      font-size: 24px;
-      font-weight: 600;
-      color: #1a1a1a;
+      font-family: 'DM Serif Display', serif;
+      font-size: 26px;
+      color: var(--black);
+      letter-spacing: -0.5px;
     }
 
     .stat-label {
-      font-size: 12px;
-      color: #888;
-      margin-top: 2px;
+      font-size: 11.5px;
+      color: var(--grey-3);
+      margin-top: 3px;
+      font-weight: 400;
     }
 
+    /* ── Upload section ── */
     .upload-section {
-      max-width: 600px;
+      max-width: 580px;
       margin: 0 auto;
       padding: 0 2rem 80px;
     }
 
     .step-row {
       display: flex;
-      gap: 12px;
-      margin-bottom: 32px;
+      gap: 10px;
+      margin-bottom: 28px;
     }
 
     .step {
       flex: 1;
-      background: #fff;
-      border: 1px solid #e8e8e4;
+      background: var(--white);
+      border: 1px solid var(--grey-5);
       border-radius: 12px;
-      padding: 16px;
+      padding: 16px 14px;
       text-align: center;
     }
 
     .step-num {
-      width: 28px;
-      height: 28px;
-      background: #f0f0ec;
+      width: 26px; height: 26px;
+      background: var(--grey-6);
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 12px;
+      font-size: 11px;
       font-weight: 600;
       margin: 0 auto 8px;
-      color: #555;
+      color: var(--grey-2);
     }
 
-    .step-title {
-      font-size: 13px;
-      font-weight: 500;
-      color: #1a1a1a;
-      margin-bottom: 4px;
-    }
+    .step-title { font-size: 12.5px; font-weight: 600; color: var(--black); margin-bottom: 4px; }
+    .step-desc { font-size: 11.5px; color: var(--grey-3); line-height: 1.4; }
 
-    .step-desc {
-      font-size: 12px;
-      color: #888;
-      line-height: 1.4;
-    }
-
+    /* ── Card ── */
     .upload-card {
-      background: #fff;
-      border: 1px solid #e8e8e4;
+      background: var(--white);
+      border: 1px solid var(--grey-5);
       border-radius: 16px;
-      padding: 32px;
-      margin-bottom: 16px;
+      padding: 28px;
+      margin-bottom: 14px;
     }
 
     .drop-zone {
-      border: 2px dashed #d8d8d4;
+      border: 1.5px dashed var(--grey-4);
       border-radius: 12px;
-      padding: 40px 24px;
+      padding: 36px 24px;
       text-align: center;
       cursor: pointer;
       transition: all 0.2s;
-      margin-bottom: 20px;
+      margin-bottom: 18px;
     }
 
-    .drop-zone:hover,
-    .drop-zone.dragover {
-      border-color: #e85d26;
-      background: #fdf8f6;
+    .drop-zone:hover, .drop-zone.dragover {
+      border-color: var(--orange);
+      background: var(--orange-light);
     }
 
     .drop-icon {
-      width: 40px;
-      height: 40px;
-      background: #f0f0ec;
+      width: 42px; height: 42px;
+      background: var(--grey-6);
       border-radius: 10px;
       margin: 0 auto 12px;
       display: flex;
@@ -194,376 +239,405 @@
       justify-content: center;
     }
 
-    .drop-icon svg {
-      width: 20px;
-      height: 20px;
-      stroke: #888;
-      fill: none;
-      stroke-width: 1.5;
-    }
-
-    .drop-title {
-      font-size: 14px;
-      font-weight: 500;
-      color: #1a1a1a;
-      margin-bottom: 4px;
-    }
-
-    .drop-sub {
-      font-size: 12px;
-      color: #888;
-    }
-
-    .drop-sub span {
-      color: #e85d26;
-      cursor: pointer;
-      text-decoration: underline;
-    }
-
-    #file-input {
-      display: none;
-    }
+    .drop-icon svg { width: 20px; height: 20px; stroke: var(--grey-3); fill: none; stroke-width: 1.5; }
+    .drop-title { font-size: 13.5px; font-weight: 500; color: var(--black); margin-bottom: 4px; }
+    .drop-sub { font-size: 12px; color: var(--grey-3); }
+    .drop-sub span { color: var(--orange); cursor: pointer; text-decoration: underline; }
+    #file-input { display: none; }
 
     .file-selected {
       display: none;
       align-items: center;
       gap: 10px;
-      background: #f8f8f6;
-      border: 1px solid #e8e8e4;
-      border-radius: 8px;
-      padding: 10px 14px;
-      margin-bottom: 16px;
+      background: var(--grey-6);
+      border: 1px solid var(--grey-5);
+      border-radius: 9px;
+      padding: 10px 13px;
+      margin-bottom: 14px;
     }
-
-    .file-selected.visible {
-      display: flex;
-    }
+    .file-selected.visible { display: flex; }
 
     .file-icon {
-      width: 32px;
-      height: 32px;
-      background: #e85d26;
-      border-radius: 6px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      width: 32px; height: 32px;
+      background: var(--orange);
+      border-radius: 7px;
+      display: flex; align-items: center; justify-content: center;
       flex-shrink: 0;
     }
+    .file-icon svg { width: 15px; height: 15px; stroke: #fff; fill: none; stroke-width: 1.5; }
+    .file-name { font-size: 13px; font-weight: 500; color: var(--black); flex: 1; }
+    .file-size { font-size: 12px; color: var(--grey-3); }
+    .btn-remove { background: none; border: none; color: var(--grey-3); cursor: pointer; font-size: 18px; padding: 0 4px; }
+    .btn-remove:hover { color: var(--black); }
 
-    .file-icon svg {
-      width: 16px;
-      height: 16px;
-      stroke: #fff;
-      fill: none;
-      stroke-width: 1.5;
-    }
-
-    .file-name {
-      font-size: 13px;
-      font-weight: 500;
-      color: #1a1a1a;
-      flex: 1;
-    }
-
-    .file-size {
-      font-size: 12px;
-      color: #888;
-    }
-
-    .btn-remove {
-      background: none;
-      border: none;
-      color: #888;
-      cursor: pointer;
-      font-size: 18px;
-      line-height: 1;
-      padding: 0 4px;
-    }
-
+    /* ── Buttons ── */
     .btn-analyse {
       width: 100%;
-      background: #1a1a1a;
+      background: var(--black);
       color: #fff;
       border: none;
       border-radius: 10px;
-      padding: 14px;
-      font-size: 15px;
+      padding: 13px;
+      font-size: 14.5px;
       font-weight: 500;
       cursor: pointer;
-      transition: all 0.2s;
+      transition: all 0.18s;
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 8px;
+      font-family: 'DM Sans', sans-serif;
     }
+    .btn-analyse:hover:not(:disabled) { background: var(--grey-1); }
+    .btn-analyse:disabled { opacity: 0.35; cursor: not-allowed; }
 
-    .btn-analyse:hover:not(:disabled) {
-      background: #333;
-    }
+    .btn-row { display: flex; gap: 8px; margin-top: 9px; }
 
-    .btn-analyse:disabled {
-      opacity: 0.4;
-      cursor: not-allowed;
-    }
-
-    .btn-template {
-      width: 100%;
+    .btn-secondary {
+      flex: 1;
       background: transparent;
-      color: #666;
-      border: 1px solid #e8e8e4;
+      color: var(--grey-2);
+      border: 1px solid var(--grey-5);
       border-radius: 10px;
-      padding: 12px;
-      font-size: 14px;
+      padding: 11px;
+      font-size: 13px;
       cursor: pointer;
-      transition: all 0.2s;
-      margin-top: 10px;
+      transition: all 0.18s;
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 500;
     }
+    .btn-secondary:hover { background: var(--grey-6); color: var(--black); border-color: var(--grey-4); }
 
-    .btn-template:hover {
-      background: #f8f8f6;
-      color: #1a1a1a;
-    }
-
-    .loading {
-      display: none;
-      text-align: center;
-      padding: 32px;
-    }
-
-    .loading.visible {
-      display: block;
-    }
+    /* ── Loading ── */
+    .loading { display: none; text-align: center; padding: 40px 28px; }
+    .loading.visible { display: block; }
 
     .spinner {
-      width: 36px;
-      height: 36px;
-      border: 3px solid #e8e8e4;
-      border-top-color: #e85d26;
+      width: 34px; height: 34px;
+      border: 2.5px solid var(--grey-5);
+      border-top-color: var(--orange);
       border-radius: 50%;
-      animation: spin 0.8s linear infinite;
+      animation: spin 0.75s linear infinite;
       margin: 0 auto 16px;
     }
+    @keyframes spin { to { transform: rotate(360deg); } }
 
-    @keyframes spin {
-      to { transform: rotate(360deg); }
-    }
+    .loading-text { font-size: 14px; color: var(--grey-2); font-weight: 500; }
+    .loading-sub { font-size: 12px; color: var(--grey-3); margin-top: 4px; }
 
-    .loading-text {
-      font-size: 14px;
-      color: #666;
-    }
-
-    .loading-sub {
-      font-size: 12px;
-      color: #aaa;
-      margin-top: 4px;
-    }
-
-    .result-card {
+    /* ── Error ── */
+    .error-box {
       display: none;
-      background: #fff;
-      border: 1px solid #e8e8e4;
-      border-radius: 16px;
-      padding: 24px;
-      margin-bottom: 16px;
+      background: var(--red-light);
+      border: 1px solid var(--orange-border);
+      border-radius: 9px;
+      padding: 12px 14px;
+      font-size: 13px;
+      color: var(--red);
+      margin-bottom: 14px;
     }
+    .error-box.visible { display: block; }
 
-    .result-card.visible {
-      display: block;
+    /* ── Results ── */
+    .result-card { display: none; }
+    .result-card.visible { display: block; }
+
+    .result-summary {
+      background: var(--white);
+      border: 1px solid var(--grey-5);
+      border-radius: 16px;
+      padding: 22px 24px;
+      margin-bottom: 14px;
     }
 
     .result-header {
       display: flex;
       align-items: center;
       gap: 12px;
-      margin-bottom: 20px;
+      margin-bottom: 18px;
     }
 
-    .result-icon {
-      width: 40px;
-      height: 40px;
+    .result-status-icon {
+      width: 38px; height: 38px;
       border-radius: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      display: flex; align-items: center; justify-content: center;
       flex-shrink: 0;
     }
+    .result-status-icon.danger { background: var(--orange-light); }
+    .result-status-icon.success { background: var(--green-light); }
+    .result-status-icon svg { width: 18px; height: 18px; stroke-width: 1.8; fill: none; }
+    .result-status-icon.danger svg { stroke: var(--orange); }
+    .result-status-icon.success svg { stroke: var(--green); }
 
-    .result-icon.danger { background: #fdf0eb; }
-    .result-icon.success { background: #edf7f0; }
-
-    .result-icon svg {
-      width: 20px;
-      height: 20px;
-      stroke-width: 1.5;
-      fill: none;
-    }
-
-    .result-icon.danger svg { stroke: #e85d26; }
-    .result-icon.success svg { stroke: #2ea85a; }
-
-    .result-title {
-      font-size: 15px;
-      font-weight: 600;
-      color: #1a1a1a;
-    }
-
-    .result-sub {
-      font-size: 13px;
-      color: #888;
-      margin-top: 2px;
-    }
+    .result-title { font-size: 15px; font-weight: 600; color: var(--black); }
+    .result-sub { font-size: 12.5px; color: var(--grey-3); margin-top: 2px; }
 
     .summary-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 10px;
-      margin-bottom: 20px;
+      gap: 8px;
+      margin-bottom: 18px;
     }
 
     .summary-item {
-      background: #f8f8f6;
+      background: var(--grey-6);
       border-radius: 10px;
-      padding: 14px;
+      padding: 13px;
       text-align: center;
     }
 
-    .summary-value {
-      font-size: 22px;
-      font-weight: 600;
-      color: #1a1a1a;
-    }
-
-    .summary-value.danger { color: #e85d26; }
-    .summary-value.success { color: #2ea85a; }
-
-    .summary-label {
-      font-size: 11px;
-      color: #888;
-      margin-top: 2px;
-    }
+    .summary-value { font-family: 'DM Serif Display', serif; font-size: 26px; color: var(--black); }
+    .summary-value.danger { color: var(--orange); }
+    .summary-value.success { color: var(--green); }
+    .summary-label { font-size: 11px; color: var(--grey-3); margin-top: 2px; }
 
     .btn-download {
       width: 100%;
-      background: #e85d26;
+      background: var(--orange);
       color: #fff;
       border: none;
       border-radius: 10px;
-      padding: 14px;
-      font-size: 15px;
+      padding: 13px;
+      font-size: 14.5px;
       font-weight: 500;
       cursor: pointer;
-      transition: all 0.2s;
+      transition: all 0.18s;
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 8px;
+      font-family: 'DM Sans', sans-serif;
     }
-
-    .btn-download:hover {
-      background: #d04f1e;
-    }
+    .btn-download:hover { background: var(--orange-dark); }
 
     .btn-reset {
       width: 100%;
       background: transparent;
-      color: #888;
+      color: var(--grey-3);
       border: none;
       padding: 10px;
       font-size: 13px;
       cursor: pointer;
-      margin-top: 8px;
+      margin-top: 6px;
+      font-family: 'DM Sans', sans-serif;
+      transition: color 0.15s;
+    }
+    .btn-reset:hover { color: var(--black); }
+
+    /* ── Cycle findings ── */
+    .findings-section {
+      background: var(--white);
+      border: 1px solid var(--grey-5);
+      border-radius: 16px;
+      overflow: hidden;
+      margin-bottom: 14px;
     }
 
-    .btn-reset:hover { color: #1a1a1a; }
+    .findings-header {
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--grey-5);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
 
-    .error-box {
-      display: none;
-      background: #fdf0eb;
-      border: 1px solid #f5c9b3;
-      border-radius: 10px;
-      padding: 14px 16px;
+    .findings-title {
       font-size: 13px;
-      color: #c0391b;
-      margin-bottom: 16px;
+      font-weight: 600;
+      color: var(--black);
     }
 
-    .error-box.visible { display: block; }
+    .findings-count {
+      font-size: 11.5px;
+      color: var(--grey-3);
+      background: var(--grey-6);
+      padding: 3px 10px;
+      border-radius: 20px;
+    }
 
-    .how-it-works {
-      max-width: 760px;
+    .cycle-item {
+      border-bottom: 1px solid var(--grey-5);
+      overflow: hidden;
+    }
+    .cycle-item:last-child { border-bottom: none; }
+
+    .cycle-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 20px;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+    .cycle-header:hover { background: var(--grey-6); }
+
+    .cycle-badge {
+      font-size: 11px;
+      font-weight: 600;
+      padding: 3px 9px;
+      border-radius: 6px;
+      flex-shrink: 0;
+    }
+    .cycle-badge.danger { background: var(--orange-light); color: var(--orange); }
+    .cycle-badge.warning { background: #fef9eb; color: #b7791f; }
+    .cycle-badge.success { background: var(--green-light); color: var(--green); }
+    .cycle-badge.critical { background: #fde8e8; color: #c0391b; }
+
+    .cycle-info { flex: 1; }
+    .cycle-pump { font-size: 13px; font-weight: 500; color: var(--black); }
+    .cycle-accum { font-size: 12px; color: var(--grey-3); margin-top: 2px; }
+
+    .cycle-num {
+      font-size: 11.5px;
+      color: var(--grey-4);
+      font-weight: 500;
+      flex-shrink: 0;
+    }
+
+    .cycle-chevron {
+      width: 16px; height: 16px;
+      stroke: var(--grey-4);
+      fill: none;
+      stroke-width: 2;
+      transition: transform 0.2s;
+      flex-shrink: 0;
+    }
+    .cycle-item.open .cycle-chevron { transform: rotate(180deg); }
+
+    .cycle-body {
+      display: none;
+      padding: 0 20px 18px;
+      border-top: 1px solid var(--grey-5);
+      background: var(--grey-6);
+    }
+    .cycle-item.open .cycle-body { display: block; }
+
+    .narrative-block {
+      padding: 14px 16px;
+      background: var(--white);
+      border: 1px solid var(--grey-5);
+      border-radius: 10px;
+      margin-top: 14px;
+      font-size: 12.5px;
+      color: var(--grey-2);
+      line-height: 1.65;
+      white-space: pre-wrap;
+      font-family: 'DM Sans', sans-serif;
+    }
+
+    .shap-list {
+      margin-top: 14px;
+    }
+
+    .shap-label {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--grey-3);
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      margin-bottom: 8px;
+    }
+
+    .shap-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 7px 0;
+      border-bottom: 1px solid var(--grey-5);
+    }
+    .shap-item:last-child { border-bottom: none; }
+
+    .shap-desc { font-size: 12px; color: var(--grey-2); flex: 1; }
+    .shap-dir {
+      font-size: 11px;
+      font-weight: 600;
+      padding: 2px 8px;
+      border-radius: 5px;
+      flex-shrink: 0;
+    }
+    .shap-dir.up { background: #fde8e8; color: var(--red); }
+    .shap-dir.down { background: var(--green-light); color: var(--green); }
+
+    .shap-mag {
+      font-size: 11px;
+      color: var(--grey-3);
+      flex-shrink: 0;
+      min-width: 48px;
+      text-align: right;
+    }
+
+    /* ── How it works ── */
+    .how-section {
+      max-width: 720px;
       margin: 0 auto 80px;
       padding: 0 2rem;
     }
 
     .section-label {
-      font-size: 12px;
+      font-size: 11px;
       font-weight: 600;
-      color: #888;
+      color: var(--grey-3);
       text-transform: uppercase;
-      letter-spacing: 0.08em;
-      margin-bottom: 24px;
+      letter-spacing: 0.1em;
+      margin-bottom: 22px;
       text-align: center;
     }
 
     .features {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 16px;
+      gap: 14px;
     }
 
     .feature {
-      background: #fff;
-      border: 1px solid #e8e8e4;
-      border-radius: 12px;
+      background: var(--white);
+      border: 1px solid var(--grey-5);
+      border-radius: 13px;
       padding: 20px;
+      transition: border-color 0.2s;
     }
+    .feature:hover { border-color: var(--grey-4); }
 
     .feature-icon {
-      width: 36px;
-      height: 36px;
-      background: #f0f0ec;
+      width: 36px; height: 36px;
+      background: var(--grey-6);
       border-radius: 8px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      display: flex; align-items: center; justify-content: center;
       margin-bottom: 12px;
     }
-
-    .feature-icon svg {
-      width: 18px;
-      height: 18px;
-      stroke: #555;
-      fill: none;
-      stroke-width: 1.5;
-    }
-
-    .feature-title {
-      font-size: 13px;
-      font-weight: 600;
-      color: #1a1a1a;
-      margin-bottom: 6px;
-    }
-
-    .feature-desc {
-      font-size: 12px;
-      color: #888;
-      line-height: 1.5;
-    }
+    .feature-icon svg { width: 17px; height: 17px; stroke: var(--grey-2); fill: none; stroke-width: 1.5; }
+    .feature-title { font-size: 13px; font-weight: 600; color: var(--black); margin-bottom: 6px; }
+    .feature-desc { font-size: 12px; color: var(--grey-3); line-height: 1.55; }
 
     footer {
-      border-top: 1px solid #e8e8e4;
-      padding: 24px 2rem;
+      border-top: 1px solid var(--grey-5);
+      padding: 22px 2rem;
       text-align: center;
       font-size: 12px;
-      color: #aaa;
+      color: var(--grey-4);
+    }
+
+    /* ── Healthy summary ── */
+    .all-healthy {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 16px;
+      background: var(--green-light);
+      border-radius: 10px;
+      margin-top: 12px;
+      font-size: 13px;
+      color: var(--green);
+      font-weight: 500;
     }
 
     @media (max-width: 600px) {
-      h1 { font-size: 28px; }
+      h1 { font-size: 30px; }
       .features { grid-template-columns: 1fr; }
-      .stats { gap: 24px; }
-      .summary-grid { grid-template-columns: repeat(3, 1fr); }
+      .stats { flex-direction: column; gap: 0; }
+      .stat { border-right: none; border-bottom: 1px solid var(--grey-5); }
+      .stat:last-child { border-bottom: none; }
+      .btn-row { flex-direction: column; }
     }
   </style>
 </head>
@@ -571,19 +645,21 @@
 
 <nav>
   <div class="logo">
-    <div class="logo-dot"></div>
+    <div class="logo-pip"></div>
     HydrauProtect AI
   </div>
-  <span class="nav-tag">Oil & Gas Maintenance Decision Support</span>
+  <span class="nav-pill">Oil & Gas Maintenance Decision Support</span>
 </nav>
 
 <div class="hero">
-  <div class="hero-badge">Powered by Machine Learning + Explainable AI</div>
-  <h1>Detect hydraulic faults.<br><span>Before they cost you.</span></h1>
+  <div class="hero-badge">
+    <span class="badge-dot"></span>
+    Powered by Machine Learning + Explainable AI
+  </div>
+  <h1>Detect hydraulic faults.<br><em>Before they cost you.</em></h1>
   <p class="hero-sub">
     Upload your SCADA sensor export and get a plain English maintenance 
-    report with fault diagnosis, sensor evidence, and regulatory references 
-    — in seconds.
+    report with fault diagnosis, sensor evidence, and recommended actions — in seconds.
   </p>
 
   <div class="stats">
@@ -592,12 +668,16 @@
       <div class="stat-label">Model accuracy</div>
     </div>
     <div class="stat">
-      <div class="stat-number">4</div>
+      <div class="stat-number">2</div>
       <div class="stat-label">Components assessed</div>
     </div>
     <div class="stat">
-      <div class="stat-number">3</div>
-      <div class="stat-label">Regulatory standards</div>
+      <div class="stat-number">16</div>
+      <div class="stat-label">Sensors monitored</div>
+    </div>
+    <div class="stat">
+      <div class="stat-number">SHAP</div>
+      <div class="stat-label">Explainability method</div>
     </div>
   </div>
 </div>
@@ -612,21 +692,20 @@
     <div class="step">
       <div class="step-num">2</div>
       <div class="step-title">Upload your data</div>
-      <div class="step-desc">Drop your sensor summary CSV into the analyser</div>
+      <div class="step-desc">Drop your sensor CSV into the analyser below</div>
     </div>
     <div class="step">
       <div class="step-num">3</div>
-      <div class="step-title">Download report</div>
-      <div class="step-desc">Get a PDF maintenance finding ready for your superintendent</div>
+      <div class="step-title">Get your report</div>
+      <div class="step-desc">View findings inline and download a PDF for your superintendent</div>
     </div>
   </div>
 
+  <!-- Upload card -->
   <div class="upload-card" id="upload-card">
     <div class="drop-zone" id="drop-zone">
       <div class="drop-icon">
-        <svg viewBox="0 0 24 24">
-          <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M17 8l-5-5-5 5M12 3v12"/>
-        </svg>
+        <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M17 8l-5-5-5 5M12 3v12"/></svg>
       </div>
       <div class="drop-title">Drop your CSV file here</div>
       <div class="drop-sub">or <span id="browse-link">browse to upload</span></div>
@@ -635,10 +714,7 @@
 
     <div class="file-selected" id="file-selected">
       <div class="file-icon">
-        <svg viewBox="0 0 24 24">
-          <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/>
-          <polyline points="14 2 14 8 20 8"/>
-        </svg>
+        <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
       </div>
       <div class="file-name" id="file-name">filename.csv</div>
       <div class="file-size" id="file-size">0 KB</div>
@@ -648,148 +724,145 @@
     <div class="error-box" id="error-box"></div>
 
     <button class="btn-analyse" id="btn-analyse" disabled>
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" 
-           stroke="currentColor" stroke-width="2">
-        <circle cx="11" cy="11" r="8"/>
-        <path d="M21 21l-4.35-4.35"/>
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/>
       </svg>
       Analyse system health
     </button>
 
-    <button class="btn-template" id="btn-template">
-      Download CSV template
-    </button>
+    <div class="btn-row">
+      <button class="btn-secondary" id="btn-sample">
+        Try with sample data
+      </button>
+      <button class="btn-secondary" id="btn-template">
+        Download CSV template
+      </button>
+    </div>
   </div>
 
+  <!-- Loading -->
   <div class="loading" id="loading">
     <div class="spinner"></div>
     <div class="loading-text">Analysing hydraulic system data</div>
-    <div class="loading-sub">Running fault detection and generating report...</div>
+    <div class="loading-sub">Running fault detection · Generating SHAP explanations · Building report…</div>
   </div>
 
+  <!-- Results -->
   <div class="result-card" id="result-card">
-    <div class="result-header">
-      <div class="result-icon" id="result-icon">
-        <svg viewBox="0 0 24 24">
-          <path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/>
-          <line x1="12" y1="9" x2="12" y2="13"/>
-          <line x1="12" y1="17" x2="12.01" y2="17"/>
+
+    <!-- Summary -->
+    <div class="result-summary">
+      <div class="result-header">
+        <div class="result-status-icon" id="result-icon">
+          <svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        </div>
+        <div>
+          <div class="result-title" id="result-title">Analysis complete</div>
+          <div class="result-sub" id="result-sub">Your maintenance report is ready</div>
+        </div>
+      </div>
+
+      <div class="summary-grid">
+        <div class="summary-item">
+          <div class="summary-value" id="total-cycles">—</div>
+          <div class="summary-label">Cycles analysed</div>
+        </div>
+        <div class="summary-item">
+          <div class="summary-value danger" id="flagged-cycles">—</div>
+          <div class="summary-label">Require attention</div>
+        </div>
+        <div class="summary-item">
+          <div class="summary-value success" id="healthy-cycles">—</div>
+          <div class="summary-label">Healthy cycles</div>
+        </div>
+      </div>
+
+      <button class="btn-download" id="btn-download">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/>
         </svg>
-      </div>
-      <div>
-        <div class="result-title" id="result-title">Analysis complete</div>
-        <div class="result-sub" id="result-sub">Your maintenance report is ready</div>
-      </div>
+        Download maintenance report (PDF)
+      </button>
+      <button class="btn-reset" id="btn-reset">Analyse another file</button>
     </div>
 
-    <div class="summary-grid">
-      <div class="summary-item">
-        <div class="summary-value" id="total-cycles">-</div>
-        <div class="summary-label">Cycles analysed</div>
-      </div>
-      <div class="summary-item">
-        <div class="summary-value danger" id="flagged-cycles">-</div>
-        <div class="summary-label">Require attention</div>
-      </div>
-      <div class="summary-item">
-        <div class="summary-value success" id="healthy-cycles">-</div>
-        <div class="summary-label">Healthy cycles</div>
-      </div>
-    </div>
+    <!-- Cycle findings -->
+    <div class="findings-section" id="findings-section"></div>
 
-    <button class="btn-download" id="btn-download">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
-           stroke="currentColor" stroke-width="2">
-        <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/>
-      </svg>
-      Download maintenance report
-    </button>
-
-    <button class="btn-reset" id="btn-reset">Analyse another file</button>
   </div>
 </div>
 
-<div class="how-it-works">
+<!-- How it works -->
+<div class="how-section">
   <div class="section-label">How it works</div>
   <div class="features">
     <div class="feature">
       <div class="feature-icon">
-        <svg viewBox="0 0 24 24">
-          <path d="M9 3H5a2 2 0 00-2 2v4m6-6h10a2 2 0 012 2v4M9 3v18m0 0h10a2 2 0 002-2v-4M9 21H5a2 2 0 01-2-2v-4m0 0h18"/>
-        </svg>
+        <svg viewBox="0 0 24 24"><path d="M9 3H5a2 2 0 00-2 2v4m6-6h10a2 2 0 012 2v4M9 3v18m0 0h10a2 2 0 002-2v-4M9 21H5a2 2 0 01-2-2v-4m0 0h18"/></svg>
       </div>
       <div class="feature-title">Multi-component diagnosis</div>
       <div class="feature-desc">Simultaneously assesses pump leakage and accumulator condition across every cycle in your upload.</div>
     </div>
     <div class="feature">
       <div class="feature-icon">
-        <svg viewBox="0 0 24 24">
-          <circle cx="12" cy="12" r="10"/>
-          <path d="M12 8v4M12 16h.01"/>
-        </svg>
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
       </div>
       <div class="feature-title">Explainable findings</div>
       <div class="feature-desc">Every diagnosis shows which sensors drove the finding and what they indicate physically — no black box.</div>
     </div>
     <div class="feature">
       <div class="feature-icon">
-        <svg viewBox="0 0 24 24">
-          <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/>
-          <path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/>
-        </svg>
+        <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/></svg>
       </div>
-      <div class="feature-title">Regulatory-backed reports</div>
-      <div class="feature-desc">Every report references ISO 4413, API 686, and ISO 18435 — ready for your maintenance superintendent.</div>
+      <div class="feature-title">Engineer-ready reports</div>
+      <div class="feature-desc">Plain English maintenance findings with urgency levels and recommended actions — ready for your work order system.</div>
     </div>
   </div>
 </div>
 
 <footer>
-  HydrauProtect AI — Hydraulic System Maintenance Decision Support &nbsp;|&nbsp; 
-  Built for Oil & Gas Operations
+  HydrauProtect AI &nbsp;·&nbsp; Hydraulic System Maintenance Decision Support &nbsp;·&nbsp; Built for Oil & Gas Operations
 </footer>
 
 <script>
-  const dropZone = document.getElementById('drop-zone');
-  const fileInput = document.getElementById('file-input');
-  const browseLink = document.getElementById('browse-link');
-  const fileSelected = document.getElementById('file-selected');
-  const fileName = document.getElementById('file-name');
-  const fileSize = document.getElementById('file-size');
-  const btnRemove = document.getElementById('btn-remove');
-  const btnAnalyse = document.getElementById('btn-analyse');
-  const btnTemplate = document.getElementById('btn-template');
-  const btnDownload = document.getElementById('btn-download');
-  const btnReset = document.getElementById('btn-reset');
-  const uploadCard = document.getElementById('upload-card');
-  const loading = document.getElementById('loading');
-  const resultCard = document.getElementById('result-card');
-  const errorBox = document.getElementById('error-box');
-  const resultIcon = document.getElementById('result-icon');
-  const resultTitle = document.getElementById('result-title');
-  const resultSub = document.getElementById('result-sub');
+  // ── API base — works locally AND on Render/any deployment ──────────────────
+  const API_BASE = window.location.origin;
 
-  const API_BASE = 'http://127.0.0.1:5000';
+  // ── DOM refs ───────────────────────────────────────────────────────────────
+  const dropZone       = document.getElementById('drop-zone');
+  const fileInput      = document.getElementById('file-input');
+  const browseLink     = document.getElementById('browse-link');
+  const fileSelected   = document.getElementById('file-selected');
+  const fileNameEl     = document.getElementById('file-name');
+  const fileSizeEl     = document.getElementById('file-size');
+  const btnRemove      = document.getElementById('btn-remove');
+  const btnAnalyse     = document.getElementById('btn-analyse');
+  const btnTemplate    = document.getElementById('btn-template');
+  const btnSample      = document.getElementById('btn-sample');
+  const btnDownload    = document.getElementById('btn-download');
+  const btnReset       = document.getElementById('btn-reset');
+  const uploadCard     = document.getElementById('upload-card');
+  const loading        = document.getElementById('loading');
+  const resultCard     = document.getElementById('result-card');
+  const errorBox       = document.getElementById('error-box');
+  const resultIcon     = document.getElementById('result-icon');
+  const resultTitle    = document.getElementById('result-title');
+  const resultSub      = document.getElementById('result-sub');
+  const findingsSection = document.getElementById('findings-section');
+
   let selectedFile = null;
-  let reportBlob = null;
+  let reportBlob   = null;
 
+  // ── File selection ─────────────────────────────────────────────────────────
   browseLink.addEventListener('click', () => fileInput.click());
   dropZone.addEventListener('click', () => fileInput.click());
 
-  dropZone.addEventListener('dragover', (e) => {
-    e.preventDefault();
-    dropZone.classList.add('dragover');
-  });
-
-  dropZone.addEventListener('dragleave', () => {
-    dropZone.classList.remove('dragover');
-  });
-
-  dropZone.addEventListener('drop', (e) => {
+  dropZone.addEventListener('dragover', e => { e.preventDefault(); dropZone.classList.add('dragover'); });
+  dropZone.addEventListener('dragleave', () => dropZone.classList.remove('dragover'));
+  dropZone.addEventListener('drop', e => {
     e.preventDefault();
     dropZone.classList.remove('dragover');
-    const file = e.dataTransfer.files[0];
-    if (file) handleFileSelect(file);
+    if (e.dataTransfer.files[0]) handleFileSelect(e.dataTransfer.files[0]);
   });
 
   fileInput.addEventListener('change', () => {
@@ -797,13 +870,10 @@
   });
 
   function handleFileSelect(file) {
-    if (!file.name.endsWith('.csv')) {
-      showError('Please upload a CSV file.');
-      return;
-    }
+    if (!file.name.endsWith('.csv')) { showError('Please upload a CSV file.'); return; }
     selectedFile = file;
-    fileName.textContent = file.name;
-    fileSize.textContent = formatSize(file.size);
+    fileNameEl.textContent = file.name;
+    fileSizeEl.textContent = formatSize(file.size);
     fileSelected.classList.add('visible');
     dropZone.style.display = 'none';
     btnAnalyse.disabled = false;
@@ -818,6 +888,32 @@
     btnAnalyse.disabled = true;
   });
 
+  // ── Sample data ────────────────────────────────────────────────────────────
+  btnSample.addEventListener('click', async () => {
+    btnSample.textContent = 'Loading sample…';
+    btnSample.disabled = true;
+    try {
+      const res = await fetch('data/sample_10_cycles.csv');
+      if (!res.ok) throw new Error('Sample file not found');
+      const blob = await res.blob();
+      const file = new File([blob], 'sample_10_cycles.csv', { type: 'text/csv' });
+      handleFileSelect(file);
+    } catch (e) {
+      showError('Sample data not available. Please upload your own CSV.');
+    } finally {
+      btnSample.textContent = 'Try with sample data';
+      btnSample.disabled = false;
+    }
+  });
+
+  // ── Template download ──────────────────────────────────────────────────────
+  btnTemplate.addEventListener('click', async () => {
+    const res = await fetch(`${API_BASE}/template`);
+    const blob = await res.blob();
+    triggerDownload(blob, 'hydrauprotect_template.csv');
+  });
+
+  // ── Analyse ────────────────────────────────────────────────────────────────
   btnAnalyse.addEventListener('click', async () => {
     if (!selectedFile) return;
 
@@ -830,10 +926,11 @@
       const formData = new FormData();
       formData.append('file', selectedFile);
 
-      const analyseRes = await fetch(`${API_BASE}/analyse`, {
-        method: 'POST',
-        body: formData
-      });
+      // Run analyse and report fetch in parallel
+      const [analyseRes, reportRes] = await Promise.all([
+        fetch(`${API_BASE}/analyse`, { method: 'POST', body: formData }),
+        fetch(`${API_BASE}/report`,  { method: 'POST', body: (() => { const f = new FormData(); f.append('file', selectedFile); return f; })() })
+      ]);
 
       if (!analyseRes.ok) {
         const err = await analyseRes.json();
@@ -841,21 +938,10 @@
       }
 
       const data = await analyseRes.json();
-
-      const reportFormData = new FormData();
-      reportFormData.append('file', selectedFile);
-
-      const reportRes = await fetch(`${API_BASE}/report`, {
-        method: 'POST',
-        body: reportFormData
-      });
-
-      if (!reportRes.ok) throw new Error('Report generation failed');
-
-      reportBlob = await reportRes.blob();
+      reportBlob = reportRes.ok ? await reportRes.blob() : null;
 
       loading.classList.remove('visible');
-      showResult(data.summary);
+      showResult(data);
 
     } catch (err) {
       loading.classList.remove('visible');
@@ -864,32 +950,129 @@
     }
   });
 
-  function showResult(summary) {
-    document.getElementById('total-cycles').textContent = summary.total_cycles;
+  // ── Render results ─────────────────────────────────────────────────────────
+  function showResult(data) {
+    const { summary, predictions, narratives, shap_explanations } = data;
+
+    document.getElementById('total-cycles').textContent   = summary.total_cycles;
     document.getElementById('flagged-cycles').textContent = summary.flagged_cycles;
     document.getElementById('healthy-cycles').textContent = summary.healthy_cycles;
 
     if (summary.action_required) {
-      resultIcon.className = 'result-icon danger';
+      resultIcon.className = 'result-status-icon danger';
       resultTitle.textContent = 'Action required';
-      resultSub.textContent = `${summary.flagged_cycles} cycle(s) need attention`;
+      resultSub.textContent = `${summary.flagged_cycles} cycle${summary.flagged_cycles > 1 ? 's' : ''} need attention`;
     } else {
-      resultIcon.className = 'result-icon success';
+      resultIcon.className = 'result-status-icon success';
       resultTitle.textContent = 'System healthy';
       resultSub.textContent = 'All cycles within normal parameters';
     }
 
+    if (!reportBlob) {
+      btnDownload.style.display = 'none';
+    }
+
+    // Build cycle findings
+    buildFindings(predictions, narratives, shap_explanations);
+
     resultCard.classList.add('visible');
   }
 
+  function buildFindings(predictions, narratives, shapData) {
+    findingsSection.innerHTML = '';
+
+    const flagged = predictions.filter(p => p.requires_attention);
+    const healthy = predictions.filter(p => !p.requires_attention);
+
+    const header = document.createElement('div');
+    header.className = 'findings-header';
+    header.innerHTML = `
+      <span class="findings-title">Cycle findings</span>
+      <span class="findings-count">${predictions.length} cycles</span>
+    `;
+    findingsSection.appendChild(header);
+
+    // Flagged cycles first
+    flagged.forEach(p => findingsSection.appendChild(buildCycleItem(p, narratives, shapData, true)));
+
+    // Then healthy (collapsed, no detail needed)
+    if (healthy.length > 0) {
+      const allHealthy = document.createElement('div');
+      allHealthy.style.padding = '14px 20px';
+      allHealthy.innerHTML = `
+        <div class="all-healthy">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <polyline points="20 6 9 17 4 12"/>
+          </svg>
+          ${healthy.length} cycle${healthy.length > 1 ? 's' : ''} within normal operating parameters
+        </div>
+      `;
+      findingsSection.appendChild(allHealthy);
+    }
+  }
+
+  function getSeverityClass(pump, accum) {
+    if (pump === 'Severe leakage' || accum === 'Close to failure') return 'critical';
+    if (pump === 'Weak leakage' || accum === 'Severely reduced pressure') return 'danger';
+    if (accum === 'Slightly reduced pressure') return 'warning';
+    return 'success';
+  }
+
+  function buildCycleItem(p, narratives, shapData, flagged) {
+    const item = document.createElement('div');
+    item.className = 'cycle-item';
+
+    const severity = getSeverityClass(p.pump_prediction, p.accumulator_prediction);
+    const narrative = narratives[p.cycle] || '';
+    const shap = shapData[p.cycle];
+
+    const chevron = `<svg class="cycle-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>`;
+
+    item.innerHTML = `
+      <div class="cycle-header">
+        <span class="cycle-badge ${severity}">Cycle ${p.cycle}</span>
+        <div class="cycle-info">
+          <div class="cycle-pump">${p.pump_prediction}</div>
+          <div class="cycle-accum">${p.accumulator_prediction}</div>
+        </div>
+        ${chevron}
+      </div>
+      <div class="cycle-body">
+        ${narrative ? `<div class="narrative-block">${narrative}</div>` : ''}
+        ${shap ? buildShapList(shap.top_contributors) : ''}
+      </div>
+    `;
+
+    item.querySelector('.cycle-header').addEventListener('click', () => {
+      item.classList.toggle('open');
+    });
+
+    return item;
+  }
+
+  function buildShapList(contributors) {
+    if (!contributors || contributors.length === 0) return '';
+    const items = contributors.map(c => `
+      <div class="shap-item">
+        <span class="shap-desc">${c.description}</span>
+        <span class="shap-dir ${c.direction.includes('increases') ? 'up' : 'down'}">
+          ${c.direction.includes('increases') ? '↑ risk' : '↓ risk'}
+        </span>
+        <span class="shap-mag">${c.magnitude}</span>
+      </div>
+    `).join('');
+    return `
+      <div class="shap-list">
+        <div class="shap-label">Top contributing sensors</div>
+        ${items}
+      </div>
+    `;
+  }
+
+  // ── Download ───────────────────────────────────────────────────────────────
   btnDownload.addEventListener('click', () => {
     if (!reportBlob) return;
-    const url = URL.createObjectURL(reportBlob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = 'hydrauprotect_maintenance_report.pdf';
-    a.click();
-    URL.revokeObjectURL(url);
+    triggerDownload(reportBlob, 'hydrauprotect_maintenance_report.pdf');
   });
 
   btnReset.addEventListener('click', () => {
@@ -901,35 +1084,28 @@
     btnAnalyse.disabled = true;
     resultCard.classList.remove('visible');
     uploadCard.style.display = 'block';
+    findingsSection.innerHTML = '';
     hideError();
   });
 
-  btnTemplate.addEventListener('click', async () => {
-    const res = await fetch(`${API_BASE}/template`);
-    const blob = await res.blob();
+  // ── Helpers ────────────────────────────────────────────────────────────────
+  function triggerDownload(blob, filename) {
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = 'hydrauprotect_template.csv';
+    a.download = filename;
     a.click();
     URL.revokeObjectURL(url);
-  });
-
-  function showError(msg) {
-    errorBox.textContent = msg;
-    errorBox.classList.add('visible');
   }
 
-  function hideError() {
-    errorBox.classList.remove('visible');
-  }
+  function showError(msg) { errorBox.textContent = msg; errorBox.classList.add('visible'); }
+  function hideError() { errorBox.classList.remove('visible'); }
 
   function formatSize(bytes) {
     if (bytes < 1024) return bytes + ' B';
-    if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB';
-    return (bytes / (1024 * 1024)).toFixed(1) + ' MB';
+    if (bytes < 1048576) return (bytes / 1024).toFixed(1) + ' KB';
+    return (bytes / 1048576).toFixed(1) + ' MB';
   }
 </script>
-
 </body>
 </html>

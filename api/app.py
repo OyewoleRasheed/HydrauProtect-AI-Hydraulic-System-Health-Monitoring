@@ -165,12 +165,6 @@ def analyse():
 
 @app.route('/report', methods=['POST'])
 def generate_pdf_report():
-    """
-    Takes JSON results from /analyse and generates a PDF report.
-    
-    Request: multipart/form-data with 'file' field
-    Response: PDF file download
-    """
     if 'file' not in request.files:
         return jsonify({'error': 'No file uploaded'}), 400
 
@@ -180,11 +174,7 @@ def generate_pdf_report():
         return jsonify({'error': 'Only CSV files are accepted'}), 400
 
     try:
-        with tempfile.NamedTemporaryFile(
-            mode='wb',
-            suffix='.csv',
-            delete=False
-        ) as f:
+        with tempfile.NamedTemporaryFile(mode='wb', suffix='.csv', delete=False) as f:
             file.save(f)
             temp_path = f.name
 
@@ -198,51 +188,22 @@ def generate_pdf_report():
         for result in flagged:
             cycle_idx = result['cycle'] - 1
             cycle_features = features_df.iloc[[cycle_idx]]
-
-            pump_class_map = {
-                'No leakage': 0,
-                'Weak leakage': 1,
-                'Severe leakage': 2
-            }
-            pump_class_idx = pump_class_map.get(
-                result['pump_prediction'], 0
-            )
-
-            shap_exp = explain_prediction(
-                cycle_features,
-                pump_class_idx,
-                model_type='pump'
-            )
+            pump_class_map = {'No leakage': 0, 'Weak leakage': 1, 'Severe leakage': 2}
+            pump_class_idx = pump_class_map.get(result['pump_prediction'], 0)
+            shap_exp = explain_prediction(cycle_features, pump_class_idx, model_type='pump')
             shap_explanations[result['cycle']] = shap_exp
-
             narrative = generate_narrative(result, shap_exp)
             narratives[result['cycle']] = narrative
-            
-        BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-        reports_dir = os.path.join(BASE_DIR, 'reports')
-        os.makedirs(reports_dir, exist_ok=True)
-        report_path = generate_report(
-            predictions,
-            narratives,
-            shap_explanations,
-            output_path=os.path.join(reports_dir, 'hydrauprotect_report.pdf')
-)
 
-        # os.makedirs('reports', exist_ok=True)
-        # report_path = generate_report(
-        #     predictions,
-        #     narratives,
-        #     shap_explanations,
-        #     output_path=f'reports/hydrauprotect_report.pdf'
-        # )
+        report_bytes = generate_report(predictions, narratives, shap_explanations)
 
         os.unlink(temp_path)
 
-        return send_file(
-            report_path,
+        from flask import Response
+        return Response(
+            report_bytes,
             mimetype='application/pdf',
-            as_attachment=True,
-            download_name='hydrauprotect_maintenance_report.pdf'
+            headers={'Content-Disposition': 'attachment; filename=hydrauprotect_maintenance_report.pdf'}
         )
 
     except ValueError as e:

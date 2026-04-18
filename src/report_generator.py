@@ -225,15 +225,7 @@ def generate_report(
         "and approved by the maintenance superintendent before execution."
     )
 
-    if output_path is None:
-        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-        output_path = f"reports/maintenance_report_{timestamp}.pdf"
-
-    os.makedirs(os.path.dirname(output_path), exist_ok=True)
-    pdf.output(output_path)
-    
-    return output_path
-
+    return bytes(pdf.output())
 
 if __name__ == "__main__":
     test_predictions = [

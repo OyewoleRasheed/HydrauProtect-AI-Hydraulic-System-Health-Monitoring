@@ -235,7 +235,7 @@ def generate_report(
         "and approved by the maintenance superintendent before execution."
     )
 
-    return pdf.output()
+    return pdf.output(dest='S').encode('latin-1')
 
 if __name__ == "__main__":
     test_predictions = [

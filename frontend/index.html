@@ -893,10 +893,10 @@
     btnSample.textContent = 'Loading sample…';
     btnSample.disabled = true;
     try {
-      const res = await fetch('data/sample_10_cycles.csv');
+      const res = await fetch('samples/sample_data.csv');
       if (!res.ok) throw new Error('Sample file not found');
       const blob = await res.blob();
-      const file = new File([blob], 'sample_10_cycles.csv', { type: 'text/csv' });
+      const file = new File([blob], 'sample_data.csv', { type: 'text/csv' });
       handleFileSelect(file);
     } catch (e) {
       showError('Sample data not available. Please upload your own CSV.');

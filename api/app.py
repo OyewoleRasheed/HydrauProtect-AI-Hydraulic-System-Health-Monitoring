@@ -67,6 +67,10 @@ def download_template():
         download_name='hydrauprotect_upload_template.csv'
     )
 
+@app.route('/samples/<path:filename>')
+def serve_sample(filename):
+    samples_dir = os.path.join(BASE_DIR, 'samples')
+    return send_file(os.path.join(samples_dir, filename))
 
 @app.route('/analyse', methods=['POST'])
 def analyse():
@@ -247,7 +251,6 @@ def generate_pdf_report():
     except Exception as e:
         traceback.print_exc()
         return jsonify({'error': 'Report generation failed', 'detail': str(e)}), 500
-
 
 if __name__ == '__main__':
     app.run(debug=True, port=5000)

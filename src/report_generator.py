@@ -235,7 +235,7 @@ def generate_report(
         "and approved by the maintenance superintendent before execution."
     )
 
-    return bytes(pdf.output())
+    return pdf.output()
 
 if __name__ == "__main__":
     test_predictions = [

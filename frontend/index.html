@@ -927,9 +927,15 @@
       formData.append('file', selectedFile);
 
       // Run analyse and report fetch in parallel
+      const analyseForm = new FormData();
+      analyseForm.append('file', selectedFile);
+
+      const reportForm = new FormData();
+      reportForm.append('file', selectedFile);
+
       const [analyseRes, reportRes] = await Promise.all([
-        fetch(`${API_BASE}/analyse`, { method: 'POST', body: formData }),
-        fetch(`${API_BASE}/report`,  { method: 'POST', body: (() => { const f = new FormData(); f.append('file', selectedFile); return f; })() })
+        fetch(`${API_BASE}/analyse`, { method: 'POST', body: analyseForm }),
+        fetch(`${API_BASE}/report`,  { method: 'POST', body: reportForm })
       ]);
 
       if (!analyseRes.ok) {

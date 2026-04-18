@@ -84,10 +84,7 @@ class MaintenanceReport(FPDF):
         self.set_font('Arial', 'B', 9)
         self.cell(20, 6, f'{probability*100:.0f}%', ln=True)
 
-pdf = MaintenanceReport()
-pdf.set_auto_page_break(auto=True, margin=15)
-pdf.add_page()
-pdf.set_margins(10, 20, 10)
+
 
 
 def generate_report(
@@ -106,9 +103,10 @@ def generate_report(
     
     Returns path to saved PDF.
     """
-    # pdf = MaintenanceReport()
-    # pdf.set_auto_page_break(auto=True, margin=15)
-    # pdf.add_page()
+    pdf = MaintenanceReport()
+    pdf.set_auto_page_break(auto=True, margin=15)
+    pdf.add_page()
+    pdf.set_margins(10, 20, 10)
 
     flagged = [r for r in prediction_results if r['requires_attention']]
     healthy = [r for r in prediction_results if not r['requires_attention']]

@@ -85,7 +85,17 @@ class MaintenanceReport(FPDF):
         self.cell(20, 6, f'{probability*100:.0f}%', ln=True)
 
 
-
+def clean_text(text: str) -> str:
+    """Replace unicode characters that fpdf can't handle."""
+    return (text
+        .replace('\u2014', '-')   # em dash
+        .replace('\u2013', '-')   # en dash  
+        .replace('\u2018', "'")   # left single quote
+        .replace('\u2019', "'")   # right single quote
+        .replace('\u201c', '"')   # left double quote
+        .replace('\u201d', '"')   # right double quote
+        .replace('\u2026', '...')  # ellipsis
+    )
 
 def generate_report(
     prediction_results: list,
@@ -196,7 +206,7 @@ def generate_report(
                 pdf.set_font('Arial', '', 9)
                 pdf.set_text_color(80, 80, 80)
                 pdf.cell(0, 6,
-                    f"  [{direction_symbol}] {contrib['description'].title()} "
+                    f"  [{direction_symbol}] {clean_text(contrib['description'].title())} "
                     f"- {contrib['magnitude']} impact "
                     f"(value: {contrib['actual_value']})",
                     ln=True
@@ -212,7 +222,7 @@ def generate_report(
             pdf.set_font('Arial', '', 10)
             pdf.set_text_color(50, 50, 50)
             pdf.set_fill_color(250, 250, 250)
-            pdf.multi_cell(0, 6, narratives[cycle_num], fill=True)
+            pdf.multi_cell(0, 6, clean_text(narratives[cycle_num]), fill=True)
             pdf.ln(4)
 
     pdf.section_title('Regulatory Reference')

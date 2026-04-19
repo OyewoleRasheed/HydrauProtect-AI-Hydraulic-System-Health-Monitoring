@@ -1018,9 +1018,13 @@
   }
 
   function getSeverityClass(pump, accum) {
-    if (pump === 'Severe leakage' || accum === 'Close to failure') return 'critical';
-    if (pump === 'Weak leakage' || accum === 'Severely reduced pressure') return 'danger';
-    if (accum === 'Slightly reduced pressure') return 'warning';
+    // Strip any extra quotes that may come from JSON serialisation
+    const p = pump.replace(/"/g, '').trim();
+    const a = accum.replace(/"/g, '').trim();
+    
+    if (p === 'Severe leakage' || a === 'Close to failure') return 'critical';
+    if (p === 'Weak leakage' || a === 'Severely reduced pressure') return 'danger';
+    if (a === 'Slightly reduced pressure') return 'warning';
     return 'success';
   }
 
@@ -1029,8 +1033,12 @@
     item.className = 'cycle-item';
 
     const severity = getSeverityClass(p.pump_prediction, p.accumulator_prediction);
+    const cleanPump = p.pump_prediction.replace(/"/g, '').trim();
+    const cleanAccum = p.accumulator_prediction.replace(/"/g, '').trim();
     const narrative = narratives[p.cycle] || '';
     const shap = shapData[p.cycle];
+
+    
 
     const chevron = `<svg class="cycle-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>`;
 
@@ -1038,8 +1046,8 @@
       <div class="cycle-header">
         <span class="cycle-badge ${severity}">Cycle ${p.cycle}</span>
         <div class="cycle-info">
-          <div class="cycle-pump">${p.pump_prediction}</div>
-          <div class="cycle-accum">${p.accumulator_prediction}</div>
+          <div class="cycle-pump">${cleanPump}</div>
+          <div class="cycle-accum">${cleanAccum}</div>
         </div>
         ${chevron}
       </div>

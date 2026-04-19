@@ -2,7 +2,7 @@
 
 > An end-to-end AI system that analyses hydraulic system sensor data, diagnoses pump leakage and accumulator pressure faults, explains *why* using SHAP, and generates plain-English maintenance reports for shift engineers — automatically.
 
-[![Live Demo](https://img.shields.io/badge/🚀%20Live%20Demo-Render-46E3B7)](https://YOUR_APP_NAME.onrender.com)
+[![Live Demo](https://img.shields.io/badge/🚀%20Live%20Demo-Railway-46E3B7)](https://hydrauprotectai.up.railway.app)
 ---
 
 ## 🔍 What Problem Does This Solve?
@@ -134,7 +134,7 @@ Address within 24 hours. Inspect pump seals and check internal bypass valve.
 | Backend | Flask |
 | PDF Reports | `FPDF` |
 | Frontend | HTML/CSS/JS |
-| Deployment | Render |
+| Deployment | Railway |
 
 ---
 

@@ -1,6 +1,8 @@
 import os
 import requests
 from dotenv import load_dotenv
+    
+import time
 
 load_dotenv()
 
@@ -118,10 +120,6 @@ apply to any {pump_pred} case."""
 
 def generate_narrative(prediction_result: dict,
                        shap_explanation: dict) -> str:
-    """
-    Calls Groq API and returns plain English maintenance finding.
-    Falls back to rule-based report if API is unavailable.
-    """
     if not GROQ_API_KEY:
         return generate_fallback_narrative(prediction_result)
 
@@ -135,7 +133,7 @@ def generate_narrative(prediction_result: dict,
     body = {
         "model": "llama-3.1-8b-instant",
         "max_tokens": 400,
-        "temperature": 0.4,   # slight variation between cycles, still factual
+        "temperature": 0.4,
         "messages": [
             {
                 "role": "system",
@@ -161,8 +159,23 @@ def generate_narrative(prediction_result: dict,
             json=body,
             timeout=30
         )
+        
+        # If rate limited, wait and retry once
+        if response.status_code == 429:
+            time.sleep(3)
+            response = requests.post(
+                GROQ_URL,
+                headers=headers,
+                json=body,
+                timeout=30
+            )
+
         response.raise_for_status()
         data = response.json()
+        
+        # Small delay to avoid hitting rate limit on next call
+        time.sleep(1)
+        
         return data['choices'][0]['message']['content']
 
     except Exception as e:

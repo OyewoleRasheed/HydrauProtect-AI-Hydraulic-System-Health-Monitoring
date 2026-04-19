@@ -174,7 +174,7 @@ def generate_narrative(prediction_result: dict,
         data = response.json()
         
         # Small delay to avoid hitting rate limit on next call
-        time.sleep(1)
+        time.sleep(2)
         
         return data['choices'][0]['message']['content']
 
